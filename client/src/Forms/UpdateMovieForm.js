@@ -12,8 +12,8 @@ const newMovie = {
 const UpdateMovieForm = props => {
   // initialMovies & setInitialMovies >> passed as props from App.js
 
-  const [movie, setMovie] =useState([newMovie])
-  console.log(props.movies)
+  const [movie, setMovie] = useState([newMovie])
+  console.log(props.initialMovies)
   console.log(props.match.params) // param should be called id
 
   useEffect(() => { 
@@ -21,7 +21,7 @@ const UpdateMovieForm = props => {
       return movie.id === Number(props.match.params.id)
     });
     if(editingMovie){
-      setInitialMovies(editingMovie);
+      setMovie(editingMovie);
     }
   }, [props.initialMovies, props.match.params]);
 
@@ -33,14 +33,8 @@ const handleChange = (event) => {
   // has axios.put()
   const handleSubmit = event => {
     event.preventDefault();
-    axios
-      .put(`http://localhost:5000/api/movies/${movie.id}`, movie)
-      .then(response => {
-        console.log('PUT', response);
-        props.setInitialMovies([...props.initialMovies, response.data]);
-        props.history.push("/update-movie/${movie.id}");
-      })
-      .catch(error => console.log("No", error));
+    const id = Number(props.match.params.id)
+    props.updateMovie(id, movie)
   };
 
   return (

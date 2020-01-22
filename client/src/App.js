@@ -22,6 +22,15 @@ useEffect(() => {
     .catch(error => console.log(error))
 }, [])
 
+  const updateMovie = (id, movie) => {
+    axios
+      .put(`http://localhost:5000/api/movies/${id}`, movie)
+      .then(response => {
+        setInitialMovies(response.data)
+      })
+      .catch(error => console.log(error))
+  }
+
   const addToSavedList = movie => {
     setSavedList([...savedList, movie]);
   };
@@ -37,7 +46,12 @@ useEffect(() => {
         }}
       />
       <Route path="/update-movie/:id" render={props => {
-        return <UpdateMovieForm {...props} initialMovies={initialMovies} setInitialMovies={setInitialMovies} />
+        return <UpdateMovieForm 
+          {...props} 
+          initialMovies={initialMovies} 
+          setInitialMovies={setInitialMovies}  
+          updateMovie={updateMovie}
+          />
       }} />
     </>
   );
