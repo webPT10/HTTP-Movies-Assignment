@@ -13,13 +13,13 @@ const App = () => {
 
 useEffect(() => {
   axios
-    .get(`http"//localhost:5000/api/movies`)
+    .get('http"//localhost:5000/api/movies')
     .then(response => {
       console.log('GET', response);
       setInitialMovies(response.data)
     })
     .catch(error => console.log(error))
-})
+}, [])
 
   const addToSavedList = movie => {
     setSavedList([...savedList, movie]);

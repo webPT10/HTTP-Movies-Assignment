@@ -33,9 +33,11 @@ export default class Movie extends React.Component {
   };
 
   //create the Route to Edit the movie
-  routeToEdit = () => {
-    
-  }
+  routeToEdit = event => {
+    console.log(this.props);
+    event.preventDefault();
+    this.props.history.push(`/update-movie/${this.state.movie.id}`);
+  };
 
   render() {
     if (!this.state.movie) {
