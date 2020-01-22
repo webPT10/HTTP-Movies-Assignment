@@ -11,9 +11,10 @@ const App = () => {
   const [ initialMovies, setInitialMovies ] = useState([]);
         // [.then() response data set to useEffect, setInitialMovies]
 
+        // contains axios.get() for current Movies
 useEffect(() => {
   axios
-    .get('http"//localhost:5000/api/movies')
+    .get('http://localhost:5000/api/movies')
     .then(response => {
       console.log('GET', response);
       setInitialMovies(response.data)

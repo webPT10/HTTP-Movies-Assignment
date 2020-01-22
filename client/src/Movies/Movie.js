@@ -32,8 +32,8 @@ export default class Movie extends React.Component {
     addToSavedList(this.state.movie);
   };
 
-  //create the Route to Edit the movie
-  routeToEdit = event => {
+  //routeToUpdate 
+  routeToUpdate = event => {
     console.log(this.props);
     event.preventDefault();
     this.props.history.push(`/update-movie/${this.state.movie.id}`);
@@ -50,6 +50,8 @@ export default class Movie extends React.Component {
         <div className="save-button" onClick={this.saveMovie}>
           Save
         </div>
+        <button className='edit-btn' onClick={this.routeToUpdate} >Edit</button>
+        <button className='delete-btn' >Delete</button>
       </div>
     );
   }

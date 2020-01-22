@@ -1,29 +1,27 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-// initialMovies & setInitialMovies i.e. initial DATA >> passed down as props from App.js
+const newMovie = {
+  id: "",
+  title: "",
+  director: "",
+  metascore: "",
+  stars: []
+};
 
 const UpdateMovieForm = props => {
-  console.log(
-    "Props from App.js-useEffect to UpdateMovieForm component",
-    props
-  );
+  // initialMovies & setInitialMovies >> passed as props from App.js
 
-  // STATE
-  const newMovie = {
-    id: "",
-    title: "",
-    director: "",
-    metascore: "",
-    stars: []
-  };
-  const [movie, setMovie] = useState(newMovie);
+  const [movie, setMovie] =useState([newMovie])
+  console.log(props.movies)
+  console.log(props.match.params) // param should be called id
 
-  useEffect(() => {
-    const id = props.match.params.id;
-    const movieToEdit = props.initialMovies.find(movie => `${movie.id}` === id);
-    if (movieToEdit) {
-      setMovie(movieToEdit);
+  useEffect(() => { 
+    const editingMovie = props.initialMovies.find(movie => {
+      return movie.id === Number(props.match.params.id)
+    });
+    if(editingMovie){
+      setInitialMovies(editingMovie);
     }
   }, [props.initialMovies, props.match.params]);
 
@@ -32,7 +30,6 @@ const handleChange = (event) => {
   let value = event.target.value;
   setMovie({ ...movie, [event.target.name]: value})
 }
-
   // has axios.put()
   const handleSubmit = event => {
     event.preventDefault();
