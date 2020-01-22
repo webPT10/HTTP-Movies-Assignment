@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import MovieCard from "./MovieCard";
+
 export default class Movie extends React.Component {
   constructor(props) {
     super(props);
@@ -30,6 +31,11 @@ export default class Movie extends React.Component {
     const addToSavedList = this.props.addToSavedList;
     addToSavedList(this.state.movie);
   };
+
+  //create the Route to Edit the movie
+  routeToEdit = () => {
+    
+  }
 
   render() {
     if (!this.state.movie) {
