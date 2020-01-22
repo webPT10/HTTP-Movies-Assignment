@@ -17,7 +17,6 @@ const UpdateMovieForm = props => {
     metascore: "",
     stars: []
   };
-
   const [movie, setMovie] = useState(newMovie);
 
   useEffect(() => {
@@ -28,14 +27,21 @@ const UpdateMovieForm = props => {
     }
   }, [props.initialMovies, props.match.params]);
 
+const handleChange = (event) => {
+  event.persist();
+  let value = event.target.value;
+  setMovie({ ...movie, [event.target.name]: value})
+}
+
+  // has axios.put()
   const handleSubmit = event => {
     event.preventDefault();
     axios
       .put(`http://localhost:5000/api/movies/${movie.id}`, movie)
       .then(response => {
-        console.log(response);
+        console.log('PUT', response);
         props.setInitialMovies([...props.initialMovies, response.data]);
-        props.history.push("/");
+        props.history.push("/update-movie/${movie.id}");
       })
       .catch(error => console.log("No", error));
   };
@@ -44,10 +50,10 @@ const UpdateMovieForm = props => {
     <div>
       <h4>Edit Movie</h4>
       <form onSubmit={handleSubmit}>
-        <input name="title" type="text" placeholder="Title" value />
-        <input name="director" type="text" placeholder="Director" value />
-        <input name="metascore" type="number" placeholder="Metascore" value />
-        <input name="stars" type="text" placeholder="Stars" value />
+        <input name="title" type="text" placeholder="Title" value={movie.title} onChange={handleChange} />
+        <input name="director" type="text" placeholder="Director" value={movie.director} onChange={handleChange} />
+        <input name="metascore" type="number" placeholder="Metascore" value={movie.metascore} onChange={handleChange} />
+        <input name="stars" type="text" placeholder="Stars" value={movie.stars} onChange={handleChange} />
         <button type="submit">Edit Movie</button>
       </form>
     </div>
