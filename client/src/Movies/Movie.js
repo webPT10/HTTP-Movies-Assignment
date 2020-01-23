@@ -34,7 +34,8 @@ export default class Movie extends React.Component {
 
   deleteHandler = event => {
     event.preventDefault();
-    this.props.deleteMovie(movie.id)
+    const movieDelete = this.props.deleteMovie;
+    movieDelete(this.state.movie.id)
   };
 
   //routeToUpdate

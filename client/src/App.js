@@ -50,7 +50,7 @@ const App = props => {
       .delete(`http://localhost:5000/api/movies/${id}`)
       .then(response => {
         setInitialMovies(response.data);
-        props.history.replace(`/movies`)
+        props.history.replace(`/`)
       })
       .catch(error => console.log('DELETE > ', error))
   }
