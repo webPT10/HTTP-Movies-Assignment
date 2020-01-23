@@ -32,6 +32,11 @@ export default class Movie extends React.Component {
     addToSavedList(this.state.movie);
   };
 
+  deleteHandler = event => {
+    event.preventDefault();
+    this.props.deleteMovie(movie.id)
+  };
+
   //routeToUpdate
   routeToUpdate = event => {
     console.log(this.props);
@@ -53,7 +58,7 @@ export default class Movie extends React.Component {
         <button className="edit-btn" onClick={this.routeToUpdate}>
           Edit
         </button>
-        <button className="delete-btn">Delete</button>
+        <button className="delete-btn" onClick={this.deleteHandler} >Delete</button>
       </div>
     );
   }
