@@ -11,12 +11,15 @@ const newMovie = {
 
 const UpdateMovieForm = props => {
   // initialMovies & setInitialMovies >> passed as props from App.js
+  console.log(props)
 
   const [movie, setMovie] = useState([newMovie])
+  console.log(movie)
   console.log(props.initialMovies)
   console.log(props.match.params) // param should be called id
 
   useEffect(() => { 
+    console.log(props)
     const editingMovie = props.initialMovies.find(movie => {
       return movie.id === Number(props.match.params.id)
     });

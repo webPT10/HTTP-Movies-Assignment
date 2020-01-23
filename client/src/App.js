@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Route } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 import SavedList from "./Movies/SavedList";
 import MovieList from "./Movies/MovieList";
 import Movie from "./Movies/Movie";
 import UpdateMovieForm from "./Forms/UpdateMovieForm";
 import axios from "axios";
 
-const App = () => {
+const App = (props) => {
   const [savedList, setSavedList] = useState([]);
   const [ initialMovies, setInitialMovies ] = useState([]);
         // [.then() response data set to useEffect, setInitialMovies]
@@ -26,7 +26,15 @@ useEffect(() => {
     axios
       .put(`http://localhost:5000/api/movies/${id}`, movie)
       .then(response => {
-        setInitialMovies(response.data)
+        const updatedMovie = response.data;
+        const updatedMovies = initialMovies.map((currentMovie) => {
+          if(currentMovie.id !== updatedMovie.id){
+            return currentMovie
+          }
+          return updatedMovie
+        })
+        setInitialMovies(updatedMovies)
+        props.history.push('/')
       })
       .catch(error => console.log(error))
   }
@@ -57,4 +65,4 @@ useEffect(() => {
   );
 };
 
-export default App;
+export default withRouter(App);
